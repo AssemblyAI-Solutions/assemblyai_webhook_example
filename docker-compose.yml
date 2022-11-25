@@ -1,0 +1,17 @@
+version: '3'
+services:
+  upload:
+    build: ./upload/ .
+    environment:
+      - ASSEMBLYAI_TOKEN=${ASSEMBLYAI_TOKEN}
+
+  webhook:
+    build: ./webhook/ .
+    ports:
+      - "8000:80"
+    environment:
+      - ASSEMBLYAI_TOKEN=${ASSEMBLYAI_TOKEN}
+
+  tunnel:
+    image: cloudflare/cloudflared:latest 
+    command: 'tunnel --no-autoupdate run --token $CLOUDFLARE_TOKEN'
