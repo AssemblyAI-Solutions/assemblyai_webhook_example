@@ -24,6 +24,10 @@ def saveToDatabase(transcript_id, status, created_at, json_data):
 
 app = FastAPI()
 
+@app.get("/")
+def connectivity_check():
+    return "Hello World"
+
 #fast api post route to receive webhook
 @app.post("/")
 async def webhook(request: Request): 
