@@ -11,10 +11,19 @@
 ### Code Example
 
 #### ```upload.py```
-- [Get audio / video data from external source]()
-- [Pre-process data]()
-- [Upload & Request /v2/transcript from AssemblyAI]()
-- [Save transcript Data in DB]()
+```python
+def main():
+    files = getFiles()
+    for file in files:
+        upload_response = uploadToAssemblyAI(file)
+        request_data = {
+            "audio_url": upload_response["upload_url"],
+            "webhook_url": WEBHOOK_URL,
+        }
+        transcript_response = createNewTranscriptRequest(request_data)
+        print(transcript_response)
+
+```
 
 #### ```webhook.py```
 - [Create a webhook endpoint]()

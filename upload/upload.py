@@ -46,7 +46,6 @@ def main():
             "audio_url": upload_response["upload_url"],
             "webhook_url": WEBHOOK_URL,
         }
-
         transcript_response = createNewTranscriptRequest(request_data)
         print(transcript_response)
         
