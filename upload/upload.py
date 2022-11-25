@@ -1,7 +1,7 @@
 import requests
-
-ASSEMBLY_API_KEY = ""
-WEBHOOK_URL = "https://webhook_test.garvandoyle.com"
+import os
+ASSEMBLY_API_KEY = os.environ.get("ASSEMBLY_API_KEY")
+WEBHOOK_URL = os.environ.get("WEBHOOK_URL")
 
 def uploadToAssemblyAI(filename = "/path/to/foo.wav"):
     def read_file(filename, chunk_size=5242880):
@@ -47,7 +47,7 @@ def main():
             "webhook_url": WEBHOOK_URL,
         }
         transcript_response = createNewTranscriptRequest(request_data)
-        print(transcript_response)
+        print('Uploaded' + transcript_response['id'])
         
      
 

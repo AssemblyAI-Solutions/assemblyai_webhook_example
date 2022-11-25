@@ -2,8 +2,9 @@ from fastapi import FastAPI, Response, Request
 import json
 from datetime import datetime
 import requests
+import os 
 
-ASSEMBLY_API_KEY = ""
+ASSEMBLY_API_KEY = os.environ.get("ASSEMBLY_API_KEY")
 
 assembly_ip_address = ["44.238.19.20"]
 
