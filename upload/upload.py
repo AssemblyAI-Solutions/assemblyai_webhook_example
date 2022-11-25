@@ -41,13 +41,12 @@ def main():
     files = getFiles()
     for file in files:
         upload_response = uploadToAssemblyAI(file)
-        print(upload_response)
         request_data = {
             "audio_url": upload_response["upload_url"],
             "webhook_url": WEBHOOK_URL,
         }
         transcript_response = createNewTranscriptRequest(request_data)
-        print('Uploaded' + transcript_response['id'])
+        print('Uploaded: ' + transcript_response['id'])
         
      
 
