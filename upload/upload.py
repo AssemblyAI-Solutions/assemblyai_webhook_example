@@ -1,5 +1,8 @@
 import requests
 
+ASSEMBLY_API_KEY = ""
+WEBHOOK_URL = "https://webhook_test.garvandoyle.com"
+
 def uploadToAssemblyAI(filename = "/path/to/foo.wav"):
     def read_file(filename, chunk_size=5242880):
         with open(filename, 'rb') as _file:
@@ -9,7 +12,7 @@ def uploadToAssemblyAI(filename = "/path/to/foo.wav"):
                     break
                 yield data
 
-    headers = {'authorization': "YOUR-API-TOKEN"} 
+    headers = {'authorization': ASSEMBLY_API_KEY} 
     response = requests.post('https://api.assemblyai.com/v2/upload',
             headers=headers,
             data=read_file(filename))
@@ -21,30 +24,33 @@ def createNewTranscriptRequest(request_data):
     endpoint = "https://api.assemblyai.com/v2/transcript"
     
     headers = {
-        "authorization": "YOUR-API-TOKEN",
+        "authorization": ASSEMBLY_API_KEY,
         "content-type": "application/json"
     }
 
-    response = requests.post(endpoint, headers=headers)
+    response = requests.post(endpoint, json=request_data, headers=headers)
     response_data = response.json()
     return response_data
 
 
-# def main():
-    # get files from ftp server
-    # files = get_files_from_ftp()
-    # for file in files:
-        #calculate optimal duration of each chunk
-        #chunk_duration = file.duration / AssemblyAI Concurrency Limit
-        #split file into chunks
-        #for each chunk
-            #upload chunk to AssemblyAI
-            #get response from AssemblyAI
-            #save response to database
-                #UUID | transcript_id | status | timestamp
-        
+def getFiles():
+    return ["./example_data/example1.wav", "./example_data/example2.wav", "./example_data/example3.wav"]
 
+
+def main():
+    files = getFiles()
+    for file in files:
+        upload_response = uploadToAssemblyAI(file)
+        print(upload_response)
+        request_data = {
+            "audio_url": upload_response["upload_url"],
+            "webhook_url": WEBHOOK_URL,
+        }
+
+        transcript_response = createNewTranscriptRequest(request_data)
+        print(transcript_response)
+        
      
 
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()
