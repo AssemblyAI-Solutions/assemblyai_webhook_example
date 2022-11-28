@@ -1,6 +1,6 @@
 ## [AssembylAI Webhooks](https://www.assemblyai.com/docs/walkthroughs#using-webhooks)
 
-
+### [Video Tutuorial](https://www.loom.com/share/e046f0b2ad2f4a16b51f82d45295d58c)
 
 ### Cloudflare Tunnels
 ###### Note: Cloudflare is required to be DNS provider
